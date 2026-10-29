@@ -4,7 +4,7 @@
  const status = document.getElementById('status');
  const submit = document.getElementById('kirim');
  const cfg = window.APP_CONFIG || {};
- const deadline = cfg.deadline || '2026-11-05';
+ const deadline = cfg.deadline || '2026-11-12';
  const deadlineDate = new Date(`${deadline}T23:59:59+07:00`);
  document.getElementById('deadlineText').textContent = new Intl.DateTimeFormat('id-ID', {day:'numeric',month:'long',year:'numeric'}).format(deadlineDate);
  const fields = ['nama','unit','klaster','pasal','sikap','masalah','alasan','usulan','tindak_lanjut'];
