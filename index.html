@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="id">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Aspirasi Kedisiplinan Waktu Kerja | Komnas Perempuan</title>
+  <style>
+    :root{font-family:system-ui,-apple-system,Segoe UI,sans-serif;color:#243047;background:#f4f6fa}*{box-sizing:border-box}body{margin:0}main{max-width:940px;margin:0 auto;padding:30px 20px 60px}header{background:#253c72;color:white;padding:30px 20px}header>div{max-width:940px;margin:auto}h1{margin:0;font-size:clamp(1.5rem,3.5vw,2.3rem)}h2{font-size:1.25rem;margin:0 0 16px}.sub{opacity:.9;margin-bottom:0}.card{background:white;border:1px solid #e0e5ef;border-radius:15px;padding:24px;margin:18px 0;box-shadow:0 4px 16px #172d4b0a}.muted{color:#53627a}.notice{background:#eef4ff;border-left:4px solid #426aca;padding:12px 15px;border-radius:6px}.grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}label{display:block;font-weight:650;margin-bottom:7px}input,select,textarea{width:100%;padding:11px;border:1px solid #afbdd0;border-radius:9px;background:white;font:inherit;color:#243047}textarea{min-height:112px;resize:vertical}.help{font-size:.89rem;color:#596981;margin-top:5px}.field{margin:0 0 18px}.required:after{content:' *';color:#bd3745}.actions{display:flex;gap:12px;flex-wrap:wrap;margin-top:16px}button{cursor:pointer;background:#294f9e;color:white;border:0;padding:12px 18px;border-radius:9px;font-weight:700;font:inherit}button.secondary{background:#e8ecf5;color:#243047}button:disabled{opacity:.5;cursor:not-allowed}.tag{font-size:.8rem;display:inline-block;background:#e7edf9;padding:5px 9px;border-radius:20px;margin-bottom:10px}.status{padding:12px;border-radius:9px;margin-top:14px;display:none;white-space:pre-line}.status.error{display:block;background:#ffecec;color:#932e39}.status.ok{display:block;background:#e8f7ed;color:#1b6736}.status.warn{display:block;background:#fff4d8;color:#845500}footer{color:#66758b;font-size:.9rem;text-align:center;padding:16px}@media(max-width:650px){.grid{grid-template-columns:1fr}.card{padding:17px}}
+  </style>
+</head>
+<body>
+<header><div><span class="tag">Konsultasi rancangan kebijakan internal</span><h1>Formulir Aspirasi Kedisiplinan Waktu Kerja</h1><p class="sub">Anggota Badan Pekerja Komnas Perempuan · tindak lanjut forum 28 Oktober 2026</p></div></header>
+<main>
+  <section class="card"><h2>Tujuan dan prinsip partisipasi</h2><p>Formulir ini menerima masukan atas rancangan perubahan Tata Tertib, terutama pengaturan kedisiplinan waktu kerja. Setiap orang dapat mengirim <strong>lebih dari satu aspirasi</strong>, satu topik per pengiriman.</p><div class="notice">Identitas bersifat opsional. Hindari mencantumkan nama atau kondisi kesehatan orang lain, data presensi personal, atau informasi sensitif. Masukan dipakai untuk konsolidasi DIM dan pembahasan kebijakan, bukan sebagai penilaian kinerja individu.</div><p class="muted">Target penerimaan masukan: <strong id="deadlineText">5 November 2026</strong>. Tenggat dapat disesuaikan oleh pengelola.</p></section>
+  <form id="aspirasiForm" class="card">
+    <h2>Isian aspirasi</h2>
+    <div class="grid">
+      <div class="field"><label for="nama">Nama (opsional)</label><input id="nama" name="nama" maxlength="120" autocomplete="name" placeholder="Boleh dikosongkan"></div>
+      <div class="field"><label for="unit">Unit kerja (opsional)</label><input id="unit" name="unit" maxlength="120" placeholder="Boleh dikosongkan"></div>
+    </div>
+    <div class="field"><label class="required" for="klaster">Klaster isu</label><select id="klaster" name="klaster" required><option value="">— Pilih satu —</option>
+      <option>Jam kerja dan pilihan shift</option><option>Dispensasi keterlambatan</option><option>Pemenuhan durasi kerja dan pulang lebih awal</option><option>Kerja lembur dan pekerjaan mendadak</option><option>Care work dan akomodasi yang layak</option><option>Kerja di Mana Saja (KDM)</option><option>Presensi, koreksi dan persetujuan atasan</option><option>Sanksi kedisiplinan dan hak jawab</option><option>Evaluasi hasil kerja dan akuntabilitas</option><option>Pengaturan dalam Tata Tertib atau SOP</option><option>Evaluasi berkala kebijakan</option><option>Lainnya</option>
+    </select></div>
+    <div class="grid">
+      <div class="field"><label for="pasal">Pasal/ayat yang terkait (opsional)</label><input id="pasal" name="pasal" maxlength="150" placeholder="Contoh: Pasal 7 huruf c"></div>
+      <div class="field"><label class="required" for="sikap">Pandangan atas rancangan</label><select id="sikap" name="sikap" required><option value="">— Pilih satu —</option><option>Setuju</option><option>Setuju dengan perubahan</option><option>Tidak setuju</option><option>Memerlukan penjelasan</option><option>Mengusulkan norma baru</option></select></div>
+    </div>
+    <div class="field"><label class="required" for="masalah">Permasalahan atau aspirasi</label><textarea id="masalah" name="masalah" required minlength="15" maxlength="4000" placeholder="Uraikan masalah secara spesifik. Tidak perlu menyebut identitas seseorang."></textarea><div class="help">Minimal 15 karakter; maksimal 4.000 karakter.</div></div>
+    <div class="field"><label for="alasan">Alasan / contoh situasi (opsional)</label><textarea id="alasan" name="alasan" maxlength="4000" placeholder="Jelaskan dampak, pengalaman tanpa data pribadi, atau pertimbangan keadilan dan operasional."></textarea></div>
+    <div class="field"><label for="usulan">Usulan rumusan norma atau solusi (opsional)</label><textarea id="usulan" name="usulan" maxlength="4000" placeholder="Tuliskan usulan perubahan pasal, SOP, alur persetujuan, atau alternatif implementasi."></textarea></div>
+    <div class="field"><label class="required" for="tindak_lanjut">Tindak lanjut yang diharapkan</label><select id="tindak_lanjut" name="tindak_lanjut" required><option value="">— Pilih satu —</option><option>Perubahan norma Tata Tertib</option><option>Pengaturan dalam SOP/petunjuk teknis</option><option>Penjelasan atau sosialisasi</option><option>Kajian dan analisis data</option><option>Pembahasan lanjutan dalam forum</option><option>Lainnya</option></select></div>
+    <div class="field"><label for="persetujuan" style="font-weight:400"><input id="persetujuan" type="checkbox" required style="width:auto;margin-right:8px">Saya memahami bahwa masukan ini akan diolah oleh pengelola untuk pembahasan kebijakan internal.</label></div>
+    <div class="field" style="position:absolute;left:-9999px" aria-hidden="true"><label>Jangan isi kolom ini <input name="website" tabindex="-1" autocomplete="off"></label></div>
+    <div class="actions"><button type="submit" id="kirim">Kirim aspirasi</button><button class="secondary" type="button" id="unduh">Unduh salinan isian (JSON)</button><button class="secondary" type="reset">Kosongkan formulir</button></div>
+    <p id="status" class="status" role="status" aria-live="polite"></p>
+  </form>
+  <section class="card"><h2>Catatan setelah pengiriman</h2><p>Pengelola mengelompokkan masukan berdasarkan klaster isu, pasal, alasan, usulan, dan tindak lanjut. Status penerimaan atau penolakan substansi akan ditentukan dalam pembahasan, bukan otomatis oleh aplikasi.</p><p class="muted">Halaman ini merupakan sarana penerimaan aspirasi, bukan portal publikasi data responden. Jangan membagikan spreadsheet tanggapan kepada pihak yang tidak berwenang.</p></section>
+</main><footer>Aplikasi statis GitHub Pages · Basis data: Google Sheets melalui Google Apps Script</footer>
+<script src="config.js"></script><script src="app.js"></script>
+</body></html>
