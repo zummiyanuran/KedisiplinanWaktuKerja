@@ -4,16 +4,12 @@
  const status = document.getElementById('status');
  const submit = document.getElementById('kirim');
  const cfg = window.APP_CONFIG || {};
- const deadline = cfg.deadline || '2026-11-12';
- const deadlineDate = new Date(`${deadline}T23:59:59+07:00`);
- document.getElementById('deadlineText').textContent = new Intl.DateTimeFormat('id-ID', {day:'numeric',month:'long',year:'numeric'}).format(deadlineDate);
  const fields = ['nama','unit','klaster','pasal','sikap','masalah','alasan','usulan','tindak_lanjut'];
  function values(){return Object.fromEntries(fields.map(k=>[k, String(form.elements[k].value || '').trim()]));}
  function notify(message, type){status.textContent=message;status.className='status '+type;}
  form.addEventListener('submit',async(event)=>{
    event.preventDefault();notify('','');
    if(!form.reportValidity())return;
-   if(Date.now()>deadlineDate.getTime()){notify('Tenggat pengumpulan telah berakhir. Hubungi pengelola jika ingin menyampaikan masukan susulan.','warn');return;}
    if(!cfg.endpoint || !/^https:\/\/script\.google\.com\/macros\/s\//.test(cfg.endpoint)){notify('URL Google Apps Script belum dikonfigurasi. Hubungi pengelola.','error');return;}
    const payload=values();
    payload.website=String(form.elements.website.value || '');
