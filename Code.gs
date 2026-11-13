@@ -21,7 +21,64 @@ const CLUSTERS = [
 const STANCES = ['Setuju','Setuju dengan perubahan','Tidak setuju','Memerlukan penjelasan','Mengusulkan norma baru'];
 const FOLLOWUPS = ['Perubahan norma Tata Tertib','Pengaturan dalam SOP/petunjuk teknis',
  'Penjelasan atau sosialisasi','Kajian dan analisis data','Pembahasan lanjutan dalam forum','Lainnya'];
-function doGet(){return ContentService.createTextOutput('Endpoint aspirasi aktif. Gunakan halaman formulir GitHub Pages.').setMimeType(ContentService.MimeType.TEXT);}
+/**
+ * Endpoint GET: hanya statistik agregat yang boleh ditampilkan publik.
+ * JSONP diperlukan karena dashboard dijalankan dari GitHub Pages.
+ */
+function doGet(e) {
+  try {
+    const params = (e && e.parameter) || {};
+    if (params.action !== 'dashboard') {
+      return ContentService.createTextOutput('Endpoint aspirasi aktif. Gunakan halaman formulir GitHub Pages.')
+        .setMimeType(ContentService.MimeType.TEXT);
+    }
+    const callback = String(params.callback || '');
+    // Nama callback dibatasi supaya tidak menjadi sarana injeksi JavaScript.
+    if (!/^kpDashCb[0-9]{1,10}$/.test(callback)) {
+      return ContentService.createTextOutput(JSON.stringify({status:'invalid',message:'Callback tidak valid'}))
+        .setMimeType(ContentService.MimeType.JSON);
+    }
+    const book = SpreadsheetApp.getActiveSpreadsheet();
+    if (!book) throw new Error('Spreadsheet belum terhubung.');
+    const sheet = book.getSheetByName(SHEET_NAME);
+    const clusterCounts = Object.fromEntries(CLUSTERS.map(name => [name,0]));
+    const stanceCounts = Object.fromEntries(STANCES.map(name => [name,0]));
+    let total = 0;
+    if (sheet && sheet.getLastRow() > 1) {
+      // Hanya baca klaster isu (E) dan pandangan (G); tidak membaca nama/isi aspirasi.
+      const values = sheet.getRange(2,5,sheet.getLastRow()-1,3).getValues();
+      values.forEach(row => {
+        const cluster = String(row[0] || '').trim();
+        const stance = String(row[2] || '').trim();
+        if (!cluster && !stance) return;
+        total++;
+        if (Object.prototype.hasOwnProperty.call(clusterCounts,cluster)) clusterCounts[cluster]++;
+        if (Object.prototype.hasOwnProperty.call(stanceCounts,stance)) stanceCounts[stance]++;
+      });
+    }
+    const data = {
+      status:'ok', total:total,
+      activeClusters:Object.values(clusterCounts).filter(count => count > 0).length,
+      needsExplanation:stanceCounts['Memerlukan penjelasan'],
+      newNorms:stanceCounts['Mengusulkan norma baru'],
+      clusters:CLUSTERS.map(label => ({label:label,count:clusterCounts[label]})),
+      stances:STANCES.map(label => ({label:label,count:stanceCounts[label]})),
+      generatedAt:new Date().toISOString()
+    };
+    return ContentService.createTextOutput(callback+'('+JSON.stringify(data)+');')
+      .setMimeType(ContentService.MimeType.JAVASCRIPT);
+  } catch (err) {
+    console.error('Dashboard:',err);
+    // Jangan tampilkan rincian kesalahan server ke publik.
+    const callback = String((e && e.parameter && e.parameter.callback) || '');
+    if (/^kpDashCb[0-9]{1,10}$/.test(callback)) {
+      return ContentService.createTextOutput(callback+'('+JSON.stringify({status:'error',message:'Statistik belum tersedia'})+');')
+        .setMimeType(ContentService.MimeType.JAVASCRIPT);
+    }
+    return ContentService.createTextOutput(JSON.stringify({status:'error'}))
+      .setMimeType(ContentService.MimeType.JSON);
+  }
+}
 function doPost(e){
  const lock=LockService.getScriptLock();
  try{
